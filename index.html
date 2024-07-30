@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2113.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="ru"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Сортировка&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>table {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-collapse: collapse;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th, td {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #ddd;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>th {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-top: 100px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: rgba(0,0,0,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.modal-content {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #fefefe;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #888;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 80%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.close {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #aaa;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>float: right;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 28px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.close:hover,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.close:focus {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: black;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;a href="#" id="sortLink"&gt;Сортировка&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="sortModal" class="modal"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-content"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="close"&gt;&amp;times;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;table id="sortableTable"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;th onclick="sortTable(0)"&gt;Продукт&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;th onclick="sortTable(1)"&gt;Категория&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;th onclick="sortTable(2)"&gt;Цена&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;Товар 1&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;Категория А&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;100&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;Товар 2&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;Категория B&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;200&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;Товар 3&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;Категория А&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td&gt;150&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById('sortLink').onclick = function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('sortModal').style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.querySelector('.close').onclick = function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('sortModal').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function sortTable(columnIndex) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const table = document.getElementById("sortableTable");</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let switching = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let shouldSwitch;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let rows;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let i;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let x, y;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let direction = "asc";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>while (switching) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>switching = false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>rows = table.rows;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (i = 1; i &lt; (rows.length - 1); i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>shouldSwitch = false;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>x = rows[i].getElementsByTagName("TD")[columnIndex];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>y = rows[i + 1].getElementsByTagName("TD")[columnIndex];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (direction === "asc") {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (x.innerHTML.toLowerCase() &gt; y.innerHTML.toLowerCase()) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>shouldSwitch = true;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>} else if (direction === "desc") {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (x.innerHTML.toLowerCase() &lt; y.innerHTML.toLowerCase()) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>shouldSwitch = true;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (shouldSwitch) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>switching = true;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (direction === "asc") {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>direction = "desc";</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>switching = true;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
